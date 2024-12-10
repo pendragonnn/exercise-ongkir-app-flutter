@@ -21,4 +21,7 @@ class Province {
 
     return data.map((e) => Province.fromJson(e)).toList();
   }
+
+  @override
+  String toString() => province!;
 }
