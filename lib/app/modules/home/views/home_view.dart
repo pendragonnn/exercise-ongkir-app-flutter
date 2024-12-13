@@ -202,13 +202,39 @@ class HomeView extends GetView<HomeController> {
             dropdownBuilder: (context, selectedItem) => Text(
               "${selectedItem?['name'] ?? 'Pilih Kurir'}",
             ),
+            onChanged: (value) =>
+                controller.codeKurir.value = value?['code'] ?? "",
           ),
           SizedBox(
             height: 15,
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text("Cek Ongkos Kirim"),
+          TextField(
+            controller: controller.beratC,
+            autocorrect: false,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: "Berat dalam gram",
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 15,
+              ),
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Obx(
+            () => ElevatedButton(
+              onPressed: () {
+                if (controller.isLoading.isFalse) {
+                  controller.cekOngkir();
+                }
+              },
+              child: Text(controller.isLoading.isFalse
+                  ? "Cek Ongkos Kirim"
+                  : "Loading"),
+            ),
           ),
         ],
       ),
